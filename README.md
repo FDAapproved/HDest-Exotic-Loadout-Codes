@@ -13,7 +13,7 @@ Mod Credits
 
 Loadout Codes:*
 
-god,     - spirit    armor,
+god,     - spirit    armor,++
 g0d,     - invuln    sphere,+
 prt,     - shield    core,
 bsh,     - soul      sphere,
@@ -26,8 +26,9 @@ tsm,     - summoning talisman.
 
 *items on this list do not appear in backpacks.
 
-+only 'gives' you one sphere, the rest are spawned at your feet to turn into
++ only gives you one sphere, the rest are spawned at your feet to turn into
 archangels. 
+++ only gives you up to 3 spirit armor, the rest are spawned at your feet. 
 
 Supports Of Spirits and Shields right out of the box. Have fun!
 ```
