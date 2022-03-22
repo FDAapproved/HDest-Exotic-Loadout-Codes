@@ -29,7 +29,7 @@ tsm,     - summoning talisman.
 +only gives you one sphere, the rest are spawned at your feet to turn into
 archangels. 
 
-++only gives you one spirit armor, the rest are spawned at your feet.
+++only gives you up to 3 spirit armor, the rest are spawned at your feet.
 
 Supports Of Spirits and Shields right out of the box. Have fun!
 ```
