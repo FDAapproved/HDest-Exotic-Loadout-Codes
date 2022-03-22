@@ -1,0 +1,44 @@
+const RFID_BLUEPOTION="pot";
+
+
+// Blue Potions.
+class HDBluePotionGiver:HDPickup
+{
+	default
+	{
+		-hdpickup.fitsinbackpack;
+		+HDPickup.NeverShowInPickupManager;
+		hdpickup.refid RFID_BLUEPOTION;
+		tag "Healing Potion";
+		inventory.icon "BON1A0";
+		hdpickup.bulk 30;
+	}
+	
+	
+	// Never shows in pickup manager, 
+	// gives all directly to the player.
+	override void postbeginplay()
+	{	
+	
+		if(owner)
+		{	
+			int remainder = owner.countinv("HDBluePotionGiver");
+			if(hd_debug)console.printf("Giving player ["..owner.playernumber().."] "..remainder.." Blue Potion.");
+			owner.A_GiveInventory("BluePotion", remainder);
+			owner.A_TakeInventory("HDBluePotionGiver", remainder);
+		}
+		else
+		{
+			if(level.time > 1)
+			{
+				if(hd_debug)console.printf("World instance of HDBluePotionGiver converted.");
+				spawn("BluePotion", pos);
+			}
+			else
+			{
+				if(hd_debug)console.printf("Hanging instance of HDBluePotionGiver deleted.");
+			}
+			destroy();
+		}
+	}
+}

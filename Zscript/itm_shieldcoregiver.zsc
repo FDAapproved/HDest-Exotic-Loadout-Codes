@@ -1,0 +1,53 @@
+const RFID_SHIELDCORE="prt";
+// Shield Core.
+class HDShieldCoreGiver:HDPickup
+{
+	default
+	{
+		-hdpickup.fitsinbackpack;
+		+HDPickup.NeverShowInPickupManager;
+		hdpickup.refid RFID_SHIELDCORE;
+		tag "Shield Core";
+		inventory.icon "BON2A0";
+		hdpickup.bulk 30;
+	}
+	
+	
+	// Never shows in pickup manager, 
+	// gives all directly to the player,
+	// swaps dynamically to ofspiritsandshields version.
+	override void postbeginplay()
+	{	
+		string tospawn = "ShieldCore";
+		for(int i=0;i<allactorclasses.size();i++)
+		{
+			if(allactorclasses[i].getclassname() == "ShieldGenerator")
+			{
+				tospawn = "ShieldGenerator";
+				i = allactorclasses.size();
+			}
+		}
+	
+
+		if(owner)
+		{	
+			int remainder = owner.countinv("HDShieldCoreGiver");
+			if(hd_debug)console.printf("Giving player ["..owner.playernumber().."] "..remainder.." Shield Core.");
+			owner.A_GiveInventory(tospawn, remainder);
+			owner.A_TakeInventory("HDShieldCoreGiver", remainder);
+		}
+		else
+		{
+			if(level.time > 1)
+			{
+				if(hd_debug)console.printf("World instance of HDShieldCoreGiver converted.");
+				spawn(tospawn, pos);
+			}
+			else
+			{
+				if(hd_debug)console.printf("Hanging instance of HDShieldCoreGiver deleted.");
+			}
+			destroy();
+		}
+	}
+}

@@ -1,0 +1,91 @@
+const RFID_SPIRITARMOR="god";
+// Spirit Armor.
+class HDSpiritGiver:HDPickup
+{
+	default
+	{
+		-hdpickup.fitsinbackpack;
+		+HDPickup.NeverShowInPickupManager;
+		hdpickup.refid RFID_SPIRITARMOR;
+		tag "Spiritual Armour";
+		inventory.icon "BON2A0";
+		hdpickup.bulk 30;
+	}
+	
+	bool used;
+
+	// Never shows in pickup manager, 
+	// gives all directly to the player,
+	// swaps dynamically to ofspiritsandshields version.
+	override void postbeginplay()
+	{
+	
+		string tospawn = "SpiritualArmour";
+		for(int i=0;i<allactorclasses.size();i++)
+		{
+			if(allactorclasses[i].getclassname() == "SpiritualShield")
+			{
+				tospawn = "SpiritualShield";
+				i = allactorclasses.size();
+			}
+		}
+		
+		bool vfx;
+		if(owner)
+		{	
+			int spirits = owner.countinv(tospawn);
+			if(!vfx)
+			{
+				owner.A_Log("\c[red]The gift of praesidium...",true);
+				vfx = true;
+			}
+			
+			int remainder         = owner.countinv("HDSpiritGiver");
+			int remainder_tospawn = 0;
+			int remainder_togive  = 0;
+			console.printf(""..remainder.." "..spirits);
+			
+			if(hd_debug)console.printf("Giving player ["..owner.playernumber().."] "..remainder.." Spiritual Armour.");
+			
+			if(spirits > 2)
+			{
+				remainder_tospawn  = remainder;
+			}
+			else
+			{
+				if(remainder + spirits>3)
+				{
+					remainder_togive  = 3 - spirits; 
+					remainder_tospawn = remainder - (3-spirits);
+				}
+				else
+				{
+
+					remainder_togive  = remainder;
+				}
+			}
+			
+			if(remainder_togive)owner.A_GiveInventory(tospawn, remainder_togive);
+			
+			if(remainder_tospawn != 0)
+			{
+				for(int i = 0; i < remainder_tospawn; i++)
+					spawn(tospawn, owner.pos);
+			}
+			owner.A_TakeInventory("HDSpiritGiver", remainder);
+		}
+		else
+		{
+			if(level.time > 1)
+			{
+				if(hd_debug)console.printf("World instance of HDSpiritGiver converted.");
+				spawn(tospawn, pos);
+			}
+			else
+			{
+				if(hd_debug)console.printf("Hanging instance of HDSpiritGiver deleted.");
+			}
+			destroy();
+		}
+	}
+}

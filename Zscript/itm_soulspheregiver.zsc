@@ -1,0 +1,54 @@
+const RFID_BLUESPHERE="bsh";
+class HDBlueSphereGiver:HDPickup
+{
+	
+	default
+	{
+		-hdpickup.fitsinbackpack;
+		+HDPickup.NeverShowInPickupManager;
+		hdpickup.refid RFID_BLUESPHERE;
+		tag "Soul Sphere";
+		inventory.icon "SOULA0";
+		hdpickup.bulk 30;
+	}
+	
+	
+	// Never shows in pickup manager, 
+	// gives all directly to the player.
+	override void postbeginplay()
+	{
+		
+		bool vfx;
+		if(owner)
+		{	
+			int remainder = owner.countinv("HDBlueSphereGiver");
+			if(hd_debug)console.printf("Giving player ["..owner.playernumber().."] "..remainder.." Soul Sphere.");
+			for(int i = 0; i < remainder; i++)
+			{
+				if(!vfx)
+				{
+					owner.A_Log("\c[cyan]The gift of soul...",true);
+					PlantBit.SpawnPlants(self,70,144);
+					owner.A_StartSound("misc/p_pkup",CHAN_BODY);
+					vfx = true;		
+				}
+				owner.A_GiveInventory("HDBlues",HDBLU_BALL);
+			}
+			owner.A_TakeInventory("HDBlueSphereGiver",remainder);
+			
+		}
+		else
+		{
+			if(level.time > 1)
+			{
+				if(hd_debug)console.printf("World instance of HDBlueSphereGiver converted.");
+				spawn("BlueSphere", pos);
+			}
+			else
+			{
+				if(hd_debug)console.printf("Hanging instance of HDBlueSphereGiver deleted.");
+			}
+			destroy();
+		}
+	}
+}

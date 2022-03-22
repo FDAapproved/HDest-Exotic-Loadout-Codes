@@ -1,0 +1,59 @@
+const RFID_BROWNSPHERE="msh";
+// Megaspheres. 
+class HDBrownSphereGiver:HDPickup
+{
+	
+	default
+	{
+		-hdpickup.fitsinbackpack;
+		+HDPickup.NeverShowInPickupManager;
+		hdpickup.refid RFID_BROWNSPHERE;
+		tag "Mega Sphere";
+		inventory.icon "MEGAA0";
+		hdpickup.bulk 30;
+	}
+	
+	// Never shows in pickup manager, 
+	// gives all directly to the player. 
+	override void postbeginplay()
+	{
+
+		// Never shows in pickup manager, 
+		// gives all directly to the player.
+		if(owner)
+		{	
+			int remainder = owner.countinv("HDBrownSphereGiver");
+			if(hd_debug)console.printf("Giving player ["..owner.playernumber().."] "..remainder.." Mega Sphere.");
+			
+			bool vfx;
+			for(int i = 0; i < remainder; i++)
+			{
+				if(!vfx)
+				{
+					owner.A_Log("\c[gold]The gift of malum...",true);
+					PlantBit.SpawnPlants(self,70,144);
+					owner.A_StartSound("misc/p_pkup",CHAN_BODY);
+					vfx = true;		
+				}
+				owner.A_GiveInventory(Wads.CheckNumForName("id",0)==-1?"ShieldCore":"SpiritualArmour",1);
+				owner.A_GiveInventory("HDBlues",HDBLU_BALL);
+			}
+			
+			owner.A_TakeInventory("HDBrownSphereGiver",remainder);
+			
+		}
+		else
+		{
+			if(level.time > 1)
+			{
+				if(hd_debug)console.printf("World instance of HDBrownSphereGiver converted.");
+				spawn("BrownSphere", pos);
+			}
+			else
+			{
+				if(hd_debug)console.printf("Hanging instance of HDBrownSphereGiver deleted.");
+			}
+			destroy();
+		}
+	}
+}

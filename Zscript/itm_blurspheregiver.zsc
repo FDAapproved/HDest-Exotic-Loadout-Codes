@@ -1,0 +1,64 @@
+const RFID_BLURSPHERE="blr";
+
+
+// Blur Sphere.
+// Eric's precious... reborn. 
+class HDBlurSphereGiver:HDPickup
+{
+	default
+	{
+		-hdpickup.fitsinbackpack;
+		+HDPickup.NeverShowInPickupManager;
+		hdpickup.refid RFID_BLURSPHERE;
+		tag "Blur Sphere";
+		inventory.icon "PINSA0";
+		hdpickup.bulk 30;
+	}
+	
+	
+	// Never shows in pickup manager, 
+	// gives all directly to the player.
+	override void postbeginplay()
+	{	
+	
+		if(owner)
+		{	
+		
+			int remainder = owner.countinv("HDBlurSphereGiver");
+			if(hd_debug)console.printf("Giving player ["..owner.playernumber().."] "..remainder.." Blur Spher.");
+			
+			
+			switch(random(0,10))
+			{
+				case 7:
+					owner.A_Log("why");
+					break;
+				case 9:
+					owner.A_Log("hi");
+					break;
+				case 10:
+					owner.A_Log("ew");
+					break;
+				default:
+					owner.A_Log("hello");
+					break;
+			}
+
+			owner.A_GiveInventory("HDBlurSphere", remainder);
+			owner.A_TakeInventory("HDBlurSphereGiver", remainder);
+		}
+		else
+		{
+			if(level.time > 1)
+			{
+				if(hd_debug)console.printf("World instance of HDBlurSphereGiver converted.");
+				spawn("HDBlurSphere", pos);
+			}
+			else
+			{
+				if(hd_debug)console.printf("Hanging instance of HDBlurSphereGiver deleted.");
+			}
+			destroy();
+		}
+	}
+}

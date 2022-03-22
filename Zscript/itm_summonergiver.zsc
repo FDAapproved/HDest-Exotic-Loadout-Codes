@@ -1,0 +1,45 @@
+const RFID_TALISMAN="tsm";
+// Summoning Talisman
+class HDSummonerGiver:HDPickup
+{
+	
+	default
+	{
+		-hdpickup.fitsinbackpack;
+		+HDPickup.NeverShowInPickupManager;
+		hdpickup.refid RFID_TALISMAN;
+		tag "Summoning Talisman";
+		inventory.icon "PLHELMA0";
+		hdpickup.bulk 30;
+	}
+	
+	// Never shows in pickup manager, 
+	// gives all directly to the player. 
+	override void postbeginplay()
+	{
+
+		// Never shows in pickup manager, 
+		// gives all directly to the player.
+		if(owner)
+		{	
+			int remainder = owner.countinv("HDSummonerGiver");
+			if(hd_debug)console.printf("Giving player ["..owner.playernumber().."] "..remainder.." Summoning Talisman.");
+			owner.A_GiveInventory("SquadSummoner", remainder);
+			owner.A_TakeInventory("HDSummonerGiver",remainder);
+		}
+		else
+		{
+		
+			if(level.time > 1)
+			{
+				if(hd_debug)console.printf("World instance of HDSummonerGiver converted.");
+				spawn("SquadSummoner", pos);
+			}
+			else
+			{
+				if(hd_debug)console.printf("Hanging instance of HDSummonerGiver deleted.");
+			}
+			destroy();
+		}
+	}
+}

@@ -1,0 +1,81 @@
+const RFID_GREENSPHERE="g0d";
+// Invulnerability Sphere.
+class HDGreenSphereGiver:HDPickup
+{	
+	default
+	{
+		-hdpickup.fitsinbackpack;
+		+HDPickup.NeverShowInPickupManager;
+		hdpickup.refid RFID_GREENSPHERE;
+		tag "Invulnerability Sphere";
+		inventory.icon "PINVA0";
+		hdpickup.bulk 30;
+	}
+	
+	
+	// Never shows in pickup manager, 
+	// gives 1 directly to the player,
+	// drops the rest at their feet. 
+	override void postbeginplay()
+	{
+
+		if(owner)
+		{	
+			int remainder = owner.countinv("HDGreenSphereGiver");
+			if(hd_debug)console.printf("Giving player ["..owner.playernumber().."] "..remainder.." Invulnerability Sphere.");
+			bool vfx;
+			for(int i = 0; i < remainder; i++)
+			{
+			
+				if(!vfx)
+				{
+					owner.A_Log("\c[yellow]The gift of immunitas...",true);
+					owner.A_GiveInventory("HDInvuln");
+					owner.A_Quake(3,26,0,220,"none");
+					blockthingsiterator itt=blockthingsiterator.create(owner,256);
+					
+					let aaa = HDActor(owner.spawn("HDActor"));
+					while(itt.Next())
+					{
+						aaa.A_Immolate(itt.thing,owner,76);
+					}
+					aaa.destroy();
+					for(int i=45;i<360;i+=90)
+					{
+						owner.A_SpawnItemEx("HDExplosion",
+							4,-4,20,owner.vel.x,owner.vel.y,owner.vel.z+1,i,
+							SXF_NOCHECKPOSITION|SXF_TRANSFERPOINTERS|SXF_ABSOLUTEMOMENTUM
+						);
+						owner.A_SpawnItemEx("HDSmokeChunk",0,0,0,
+							owner.vel.x+frandom(-12,12),
+							owner.vel.y+random(-12,12),
+							owner.vel.z+frandom(4,16),
+							0,SXF_NOCHECKPOSITION|SXF_ABSOLUTEMOMENTUM
+						);
+					}
+					vfx = true;
+				}
+				else
+				{
+					actor lll=spawn("LightBearer",owner.pos);
+					lll.friendplayer = owner.playernumber()+1;
+				}
+			}
+			owner.A_TakeInventory("HDGreenSphereGiver",remainder);
+			
+		}
+		else
+		{
+			if(level.time > 1)
+			{
+				if(hd_debug)console.printf("World instance of HDGreenSphereGiver converted.");
+				spawn("GreenSphere", pos);
+			}
+			else
+			{
+				if(hd_debug)console.printf("Hanging instance of HDGreenSphereGiver deleted.");
+			}
+			destroy();
+		}
+	}
+}
