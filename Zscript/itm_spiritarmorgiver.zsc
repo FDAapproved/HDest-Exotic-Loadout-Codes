@@ -43,7 +43,6 @@ class HDSpiritGiver:HDPickup
 			int remainder         = owner.countinv("HDSpiritGiver");
 			int remainder_tospawn = 0;
 			int remainder_togive  = 0;
-			console.printf(""..remainder.." "..spirits);
 			
 			if(hd_debug)console.printf("Giving player ["..owner.playernumber().."] "..remainder.." Spiritual Armour.");
 			
