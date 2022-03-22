@@ -1,0 +1,44 @@
+const RFID_BLUEBLESSING="bls";
+
+
+// Blue Blessing.
+class HDBlueBlessingGiver:HDPickup
+{
+	default
+	{
+		-hdpickup.fitsinbackpack;
+		+HDPickup.NeverShowInPickupManager;
+		hdpickup.refid RFID_BLUEBLESSING;
+		tag "Healing Energy";
+		inventory.icon "PLSEB0";
+		hdpickup.bulk 30;
+	}
+	
+	
+	// Never shows in pickup manager, 
+	// gives all directly to the player.
+	override void postbeginplay()
+	{	
+	
+		if(owner)
+		{	
+			int remainder = owner.countinv("HDBlueBlessingGiver");
+			if(hd_debug)console.printf("Giving player ["..owner.playernumber().."] "..remainder.." Blues.");
+			owner.A_GiveInventory("HDBlues", remainder);
+			owner.A_TakeInventory("HDBlueBlessingGiver", remainder);
+		}
+		else
+		{
+			if(level.time > 1)
+			{
+				if(hd_debug)console.printf("World instance of HDBlueBlessingGiver converted.");
+				spawn("BluePotion", pos);
+			}
+			else
+			{
+				if(hd_debug)console.printf("Hanging instance of HDBlueBlessingGiver deleted.");
+			}
+			destroy();
+		}
+	}
+}

@@ -20,7 +20,8 @@ bsh,     - soul      sphere,
 msh,     - mega      sphere,
 blr,     - blur      sphere,
 pot,     - blue      potion,
-tsm,     - summoning talisman.
+tsm,     - summoning talisman,
+bls      - ingested  blues.
 
 *specify the # of any given item you want to start with after the refid.
 
