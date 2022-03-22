@@ -29,7 +29,7 @@ class HDBlueBlessingGiver:HDPickup
 			vector3 ovel=owner.vel;
 			
 			int remainder = owner.countinv("HDBlueBlessingGiver");
-			for(int i=0;i<10;i++){
+			for(int i=0;i<20;i++){
 				vector3 rpos=owner.pos+(
 					frandom(-oradius,oradius),
 					frandom(-oradius,oradius),

@@ -11,7 +11,7 @@ class BluesSpark:IdleDummy{
 	}
 	states{
 	spawn:
-		PLSE ABCDEF 3 bright A_FadeOut(0.02);
+		PLSE ABCDEF 3 bright A_FadeOut(0.01);
 		wait;
 	}
 }
