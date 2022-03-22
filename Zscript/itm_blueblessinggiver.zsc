@@ -11,7 +11,8 @@ class HDBlueBlessingGiver:HDPickup
 		hdpickup.refid RFID_BLUEBLESSING;
 		tag "Healing Energy";
 		inventory.icon "PLSEB0";
-		hdpickup.bulk 30;
+		// Easier to get more of these via insurgent this way. 
+		hdpickup.bulk 3;
 	}
 	
 	
@@ -21,8 +22,23 @@ class HDBlueBlessingGiver:HDPickup
 	{	
 	
 		if(owner)
-		{	
+		{
+			owner.A_StartSound("misc/p_pkup",CHAN_BODY);
+			double oradius=owner.radius;
+			double oheight=owner.height;
+			vector3 ovel=owner.vel;
+			
 			int remainder = owner.countinv("HDBlueBlessingGiver");
+			for(int i=0;i<10;i++){
+				vector3 rpos=owner.pos+(
+					frandom(-oradius,oradius),
+					frandom(-oradius,oradius),
+					frandom(0,oheight)
+				);
+				actor spk=actor.spawn("BluesSpark",rpos,ALLOW_REPLACE);
+				spk.vel=(frandom(-1,1),frandom(-1,1),frandom(-1,1))+ovel;
+			}
+
 			if(hd_debug)console.printf("Giving player ["..owner.playernumber().."] "..remainder.." Blues.");
 			owner.A_GiveInventory("HDBlues", remainder);
 			owner.A_TakeInventory("HDBlueBlessingGiver", remainder);

@@ -1,0 +1,17 @@
+//standalone puff that replaces blood
+class BluesSpark:IdleDummy{
+	default{
+		+forcexybillboard +rollsprite +rollcenter
+		renderstyle "add";
+	}
+	override void postbeginplay(){
+		super.postbeginplay();
+		scale*=frandom(0.2,0.5);
+		roll=frandom(0,360);
+	}
+	states{
+	spawn:
+		PLSE ABCDEF 3 bright A_FadeOut(0.02);
+		wait;
+	}
+}
