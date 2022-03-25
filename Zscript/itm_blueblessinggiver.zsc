@@ -15,6 +15,7 @@ class HDBlueBlessingGiver:HDPickup
 		hdpickup.bulk 3;
 	}
 	
+
 	
 	// Never shows in pickup manager, 
 	// gives all directly to the player.
@@ -45,15 +46,8 @@ class HDBlueBlessingGiver:HDPickup
 		}
 		else
 		{
-			if(level.time > 1)
-			{
-				if(hd_debug)console.printf("World instance of HDBlueBlessingGiver converted.");
-				spawn("BluePotion", pos);
-			}
-			else
-			{
-				if(hd_debug)console.printf("Hanging instance of HDBlueBlessingGiver deleted.");
-			}
+
+			if(hd_debug)console.printf("Hanging instance of HDBlueBlessingGiver destroyed.");
 			destroy();
 		}
 	}

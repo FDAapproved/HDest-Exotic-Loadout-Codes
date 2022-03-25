@@ -4,6 +4,7 @@ const RFID_BLUEPOTION="pot";
 // Blue Potions.
 class HDBluePotionGiver:HDPickup
 {
+
 	default
 	{
 		-hdpickup.fitsinbackpack;
@@ -29,15 +30,8 @@ class HDBluePotionGiver:HDPickup
 		}
 		else
 		{
-			if(level.time > 1)
-			{
-				if(hd_debug)console.printf("World instance of HDBluePotionGiver converted.");
-				spawn("BluePotion", pos);
-			}
-			else
-			{
-				if(hd_debug)console.printf("Hanging instance of HDBluePotionGiver deleted.");
-			}
+
+			if(hd_debug)console.printf("Hanging instance of HDBluePotionGiver deleted.");
 			destroy();
 		}
 	}

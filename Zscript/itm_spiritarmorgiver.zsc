@@ -75,15 +75,7 @@ class HDSpiritGiver:HDPickup
 		}
 		else
 		{
-			if(level.time > 1)
-			{
-				if(hd_debug)console.printf("World instance of HDSpiritGiver converted.");
-				spawn(tospawn, pos);
-			}
-			else
-			{
-				if(hd_debug)console.printf("Hanging instance of HDSpiritGiver deleted.");
-			}
+			if(hd_debug)console.printf("Hanging instance of HDSpiritGiver deleted.");
 			destroy();
 		}
 	}

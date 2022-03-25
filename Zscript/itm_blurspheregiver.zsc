@@ -49,15 +49,7 @@ class HDBlurSphereGiver:HDPickup
 		}
 		else
 		{
-			if(level.time > 1)
-			{
-				if(hd_debug)console.printf("World instance of HDBlurSphereGiver converted.");
-				spawn("HDBlurSphere", pos);
-			}
-			else
-			{
-				if(hd_debug)console.printf("Hanging instance of HDBlurSphereGiver deleted.");
-			}
+			if(hd_debug)console.printf("Hanging instance of HDBlurSphereGiver deleted.");
 			destroy();
 		}
 	}

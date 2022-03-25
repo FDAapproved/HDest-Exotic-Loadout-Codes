@@ -39,15 +39,7 @@ class HDBlueSphereGiver:HDPickup
 		}
 		else
 		{
-			if(level.time > 1)
-			{
-				if(hd_debug)console.printf("World instance of HDBlueSphereGiver converted.");
-				spawn("BlueSphere", pos);
-			}
-			else
-			{
-				if(hd_debug)console.printf("Hanging instance of HDBlueSphereGiver deleted.");
-			}
+			if(hd_debug)console.printf("Hanging instance of HDBlueSphereGiver deleted.");
 			destroy();
 		}
 	}

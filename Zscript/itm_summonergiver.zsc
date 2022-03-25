@@ -29,16 +29,7 @@ class HDSummonerGiver:HDPickup
 		}
 		else
 		{
-		
-			if(level.time > 1)
-			{
-				if(hd_debug)console.printf("World instance of HDSummonerGiver converted.");
-				spawn("SquadSummoner", pos);
-			}
-			else
-			{
-				if(hd_debug)console.printf("Hanging instance of HDSummonerGiver deleted.");
-			}
+			if(hd_debug)console.printf("Hanging instance of HDSummonerGiver deleted.");
 			destroy();
 		}
 	}
