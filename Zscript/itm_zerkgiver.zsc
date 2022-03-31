@@ -1,0 +1,62 @@
+const RFID_ZERKINJECTED="zrj";
+
+// Drugs!!!
+class HDZerkGiver:HDPickup
+{
+	default
+	{
+		-hdpickup.fitsinbackpack;
+		+HDPickup.NeverShowInPickupManager;
+		hdpickup.refid RFID_ZERKINJECTED;
+		tag "Injected Zerk";
+		inventory.icon "SYRGA0";
+		// Yeah I don't want insurgent to make you overdose. 
+		hdpickup.bulk 300;
+	}
+	
+
+	
+	// Never shows in pickup manager, 
+	// gives all directly to the player.
+	override void postbeginplay()
+	{	
+	
+		if(owner)
+		{
+			
+			// Sounds. 
+			owner.A_StartSound(hdplayerpawn(owner).xdeathsound,CHAN_VOICE);
+			owner.A_StartSound("misc/injection",CHAN_WEAPON);
+			owner.A_StartSound(hdplayerpawn(owner).painsound);
+			int remainder = owner.countinv("HDZerkGiver");
+			if(hd_debug)console.printf("Giving player ["..owner.playernumber().."] "..remainder.." Stimpack Doses.");
+			for(int i = 0; i < remainder; i++)
+			{
+				
+				// Casted owner pointer. 
+				let ppp = HDPlayerPawn(owner);
+	
+				// Doses.
+				if(i==0)
+					owner.A_GiveInventory("HDZerk",HDZerk.HDZERK_MAX);
+				else
+					owner.A_GiveInventory("HDZerk",HDZerk.HDZERK_DURATION);
+				
+				// Permanent Health Pool Damage.
+				if(ppp.stimcount)ppp.aggravateddamage+=int(ceil(ppp.stimcount*0.05*random(1,3)));
+				else ppp.aggravateddamage++;
+	
+				actor bbb = spawn("SpentZerk",owner.pos+(0,0,height-8),ALLOW_REPLACE);
+				bbb.angle=angle;bbb.vel=vel;bbb.A_ChangeVelocity(3,1,2,CVF_RELATIVE);
+				bbb.A_StartSound("weapons/grenopen",8);
+			}
+			owner.A_TakeInventory("HDZerkGiver", remainder);
+		}
+		else
+		{
+
+			if(hd_debug)console.printf("Hanging instance of HDZerkGiver destroyed.");
+			destroy();
+		}
+	}
+}

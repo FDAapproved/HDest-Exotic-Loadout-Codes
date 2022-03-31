@@ -21,6 +21,8 @@ msh,     - mega      sphere,
 blr,     - blur      sphere,
 pot,     - blue      potion,
 tsm,     - summoning talisman,
+zrj      - ingested  zerkpack, - More than one WILL will you, 
+stj      - ingested  stimpack, - More than one WILL will you,  
 bls      - ingested  blues.
 
 *specify the # of any given item you want to start with after the refid.

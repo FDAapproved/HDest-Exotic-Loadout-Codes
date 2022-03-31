@@ -1,0 +1,48 @@
+const RFID_STIMINJECTED="stj";
+
+// Drugs!!!
+class HDStimsGiver:HDPickup
+{
+	default
+	{
+		-hdpickup.fitsinbackpack;
+		+HDPickup.NeverShowInPickupManager;
+		hdpickup.refid RFID_STIMINJECTED;
+		tag "Injected Stimpack";
+		inventory.icon "SYRGA0";
+		// Yeah I don't want insurgent to make you overdose. 
+		hdpickup.bulk 300;
+	}
+	
+
+	
+	// Never shows in pickup manager, 
+	// gives all directly to the player.
+	override void postbeginplay()
+	{	
+	
+		if(owner)
+		{
+			owner.A_StartSound(hdplayerpawn(owner).medsound,CHAN_VOICE);
+			owner.A_StartSound("misc/injection",CHAN_WEAPON);
+			int remainder = owner.countinv("HDStimsGiver");
+			if(hd_debug)console.printf("Giving player ["..owner.playernumber().."] "..remainder.." Stimpack Doses.");
+			for(int i = 0; i < remainder; i++)
+			{
+				actor aaa =spawn("InjectStimDummy",owner.pos,ALLOW_REPLACE);
+				aaa.accuracy=40;aaa.target=owner;
+				
+				actor bbb = spawn("SpentStim",owner.pos+(0,0,height-8),ALLOW_REPLACE);
+				bbb.angle=angle;bbb.vel=vel;bbb.A_ChangeVelocity(3,1,2,CVF_RELATIVE);
+				bbb.A_StartSound("weapons/grenopen",8);
+			}
+			owner.A_TakeInventory("HDStimsGiver", remainder);
+		}
+		else
+		{
+
+			if(hd_debug)console.printf("Hanging instance of HDStimsGiver destroyed.");
+			destroy();
+		}
+	}
+}
