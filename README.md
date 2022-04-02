@@ -21,8 +21,8 @@ msh,     - mega      sphere,
 blr,     - blur      sphere,
 pot,     - blue      potion,
 tsm,     - summoning talisman,
-zrj      - ingested  zerkpack, - More than one WILL will you, 
-stj      - ingested  stimpack, - More than one WILL will you,  
+zrj      - ingested  zerkpack, - More than one WILL KILL you, 
+stj      - ingested  stimpack, - More than one WILL KILL you,  
 bls      - ingested  blues,
 			+ amount - 0-???, amount to be blessed.
 
