@@ -11,7 +11,9 @@ class HDBlueBlessingGiver:HDWeapon
 		HDWeapon.refid RFID_BLUEBLESSING;
 		tag "Healing Energy";
 		inventory.icon "PLSEB0";
-		// Easier to get more of these via insurgent this way. 
+		hdweapon.loadoutcodes "
+			\cuamount - 0-???, amount to be blessed.
+		";
 
 	}
 
