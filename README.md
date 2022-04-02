@@ -26,7 +26,8 @@ stj      - ingested  stimpack, - More than one WILL KILL you,
 bls      - ingested  blues,
 			+ amount - 0-???, amount to be blessed.
 
-*specify the # of any given item you want to start with after the refid.
+*specify the # of any given item you want to start with after the refid,
+*this excludes injested blues (see above).
 
 *items on this list do not appear in backpacks.
 
