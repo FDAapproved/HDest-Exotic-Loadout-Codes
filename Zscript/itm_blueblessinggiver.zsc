@@ -2,20 +2,23 @@ const RFID_BLUEBLESSING="bls";
 
 
 // Blue Blessing.
-class HDBlueBlessingGiver:HDPickup
+class HDBlueBlessingGiver:HDWeapon
 {
+	int amount;
 	default
 	{
-		-hdpickup.fitsinbackpack;
-		+HDPickup.NeverShowInPickupManager;
-		hdpickup.refid RFID_BLUEBLESSING;
+		-HDWeapon.fitsinbackpack;
+		HDWeapon.refid RFID_BLUEBLESSING;
 		tag "Healing Energy";
 		inventory.icon "PLSEB0";
 		// Easier to get more of these via insurgent this way. 
-		hdpickup.bulk 3;
-	}
-	
 
+	}
+
+	override double weaponbulk()
+	{
+		return 300;
+	}
 	
 	// Never shows in pickup manager, 
 	// gives all directly to the player.
@@ -28,9 +31,18 @@ class HDBlueBlessingGiver:HDPickup
 			double oradius=owner.radius;
 			double oheight=owner.height;
 			vector3 ovel=owner.vel;
+	
+			if(amount <= -1 || amount == 0)
+			{
+				amount = random(48, HDBLU_BALL);
+			}
+	
+			int remainder = amount;
+
 			
-			int remainder = owner.countinv("HDBlueBlessingGiver");
-			for(int i=0;i<20;i++){
+			
+			for(int i=0;i<20;i++)
+			{
 				vector3 rpos=owner.pos+(
 					frandom(-oradius,oradius),
 					frandom(-oradius,oradius),
@@ -39,10 +51,11 @@ class HDBlueBlessingGiver:HDPickup
 				actor spk=actor.spawn("BluesSpark",rpos,ALLOW_REPLACE);
 				spk.vel=(frandom(-1,1),frandom(-1,1),frandom(-1,1))+ovel;
 			}
-
+			
 			if(hd_debug)console.printf("Giving player ["..owner.playernumber().."] "..remainder.." Blues.");
+			
 			owner.A_GiveInventory("HDBlues", remainder);
-			owner.A_TakeInventory("HDBlueBlessingGiver", remainder);
+			destroy();
 		}
 		else
 		{
@@ -50,5 +63,10 @@ class HDBlueBlessingGiver:HDPickup
 			if(hd_debug)console.printf("Hanging instance of HDBlueBlessingGiver destroyed.");
 			destroy();
 		}
+	}
+	
+	override void loadoutconfigure(string input)
+	{
+			amount = getloadoutvar(input,"amount");
 	}
 }
