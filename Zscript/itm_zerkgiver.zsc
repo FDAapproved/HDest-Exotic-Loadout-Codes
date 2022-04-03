@@ -29,7 +29,7 @@ class HDZerkGiver:HDPickup
 			owner.A_StartSound("misc/injection",CHAN_WEAPON);
 			owner.A_StartSound(hdplayerpawn(owner).painsound);
 			int remainder = owner.countinv("HDZerkGiver");
-			if(hd_debug)console.printf("Giving player ["..owner.playernumber().."] "..remainder.." Stimpack Doses.");
+			if(hd_debug)console.printf("Giving player ["..owner.playernumber().."] "..remainder.." Zerk Doses.");
 			for(int i = 0; i < remainder; i++)
 			{
 				

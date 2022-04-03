@@ -9,7 +9,7 @@ class HDStimsGiver:HDPickup
 		+HDPickup.NeverShowInPickupManager;
 		hdpickup.refid RFID_STIMINJECTED;
 		tag "Injected Stimpack";
-		inventory.icon "SYRGA0";
+		inventory.icon "SYRGZ0";
 		// Yeah I don't want insurgent to make you overdose. 
 		hdpickup.bulk 300;
 	}
