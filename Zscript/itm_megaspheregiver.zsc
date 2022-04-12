@@ -30,7 +30,7 @@ class HDBrownSphereGiver:HDPickup
 			{
 				if(!vfx)
 				{
-					owner.A_Log("\c[gold]The gift of malum...",true);
+					owner.A_Log("\c[purple]The gift of malum...",true);
 					PlantBit.SpawnPlants(self,70,144);
 					owner.A_StartSound("misc/p_pkup",CHAN_BODY);
 					vfx = true;		
