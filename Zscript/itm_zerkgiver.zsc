@@ -9,7 +9,7 @@ class HDZerkGiver:HDPickup
 		+HDPickup.NeverShowInPickupManager;
 		hdpickup.refid RFID_ZERKINJECTED;
 		tag "Injected Zerk";
-		inventory.icon "SYRGA0";
+		inventory.icon "SYRBA0";
 		// Yeah I don't want insurgent to make you overdose. 
 		hdpickup.bulk 300;
 	}
