@@ -1,0 +1,34 @@
+const RFID_ROCKETDUD="rkd";
+class HDDudGiver:HDPickup
+{
+	
+	default
+	{
+		-HDPickup.fitsinbackpack;
+		HDPickup.refid RFID_ROCKETDUD;
+		tag "rocket grenade (dud)";
+		hdpickup.bulk ENC_ROCKET;
+		inventory.icon "ROCQA7A3";
+	}
+	
+	// Never shows in pickup manager, 
+	// gives all directly to the player.
+	override void postbeginplay()
+	{	
+	
+		if(owner)
+		{
+			int remainder = owner.countinv("HDDudGiver");
+		
+			if(hd_debug)console.printf("Giving player ["..owner.playernumber().."] '"..remainder.."' dud rocket grenades.");
+			owner.A_GiveInventory("DudRocketAmmo", remainder);
+			owner.A_TakeInventory("HDDudGiver", remainder);
+		}
+		else
+		{
+
+			if(hd_debug)console.printf("Hanging instance of HDDudGiver destroyed.");
+			destroy();
+		}
+	}
+}

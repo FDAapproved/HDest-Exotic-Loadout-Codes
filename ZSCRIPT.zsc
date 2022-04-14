@@ -10,4 +10,7 @@ version "4.6"
 #include "zscript/itm_blueblessinggiver.zsc"
 #include "zscript/itm_stimsgiver.zsc"
 #include "zscript/itm_zerkgiver.zsc"
+#include "zscript/itm_skullkeygiver.zsc"
+#include "zscript/itm_dudrocketgiver.zsc"
+
 #include "zscript/vfx_bluepuffs.zsc"

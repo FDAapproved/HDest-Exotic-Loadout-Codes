@@ -1,0 +1,46 @@
+const RFID_SKULLKEYS="skl";
+class HDSkullGiver:HDPickup
+{
+	
+	default
+	{
+		-HDPickup.fitsinbackpack
+		inventory.maxamount 7;
+		HDPickup.refid RFID_SKULLKEYS;
+		inventory.icon "RSKUB0";
+		tag "Skull Keys";
+	}
+	
+	// Never shows in pickup manager, 
+	// gives all directly to the player.
+	override void postbeginplay()
+	{	
+	
+		if(owner)
+		{
+			int remainder = owner.countinv("HDSkullGiver");
+			
+			if(hd_debug)console.printf("Giving player ["..owner.playernumber().."] '"..remainder.."' skull keys.");
+			
+			if((remainder&4))
+			{
+				owner.A_GiveInventory("BlueSkull");
+			}
+			if((remainder&2))
+			{
+				owner.A_GiveInventory("YellowSkull");
+			}
+			if((remainder&1))
+			{
+				owner.A_GiveInventory("RedSkull");
+			}
+			owner.A_TakeInventory("HDSkullGiver", maxamount);
+		}
+		else
+		{
+
+			if(hd_debug)console.printf("Hanging instance of HDSkullGiver destroyed.");
+			destroy();
+		}
+	}
+}
