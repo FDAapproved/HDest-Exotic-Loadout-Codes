@@ -57,8 +57,10 @@ class HDGreenSphereGiver:HDPickup
 				}
 				else
 				{
-					actor lll=spawn("LightBearer",owner.pos);
-					lll.friendplayer = owner.playernumber()+1;
+					// They -were- the light bringer. 
+					actor lll = spawn("GhostlyNecromancer",owner.pos);
+					//actor lll=spawn("LightBearer",owner.pos);
+					if(lll)lll.friendplayer = owner.playernumber()+1;
 				}
 			}
 			owner.A_TakeInventory("HDGreenSphereGiver",remainder);
