@@ -42,8 +42,8 @@ class HDZerkGiver:HDPickup
 				else
 					owner.A_GiveInventory("HDZerk",HDZerk.HDZERK_DURATION);
 				
-				// Permanent Health Pool Damage.
-				if(ppp.stimcount)ppp.aggravateddamage+=int(ceil(ppp.stimcount*0.05*random(1,3)));
+				// Permanent Health Pool Damage.	
+				if(ppp.countinv("HDStim"))ppp.aggravateddamage+=int(ceil(ppp.countinv("HDStim")*0.05*random(1,3)));
 				else ppp.aggravateddamage++;
 	
 				actor bbb = spawn("SpentZerk",owner.pos+(0,0,height-8),ALLOW_REPLACE);
