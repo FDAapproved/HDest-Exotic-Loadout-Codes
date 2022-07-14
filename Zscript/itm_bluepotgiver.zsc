@@ -25,7 +25,7 @@ class HDBluePotionGiver:HDPickup
 		{	
 			int remainder = owner.countinv("HDBluePotionGiver");
 			if(hd_debug)console.printf("Giving player ["..owner.playernumber().."] "..remainder.." Blue Potion.");
-			owner.A_GiveInventory("BluePotion", remainder);
+			owner.A_GiveInventory("HDHealingPotion", remainder);
 			owner.A_TakeInventory("HDBluePotionGiver", remainder);
 		}
 		else

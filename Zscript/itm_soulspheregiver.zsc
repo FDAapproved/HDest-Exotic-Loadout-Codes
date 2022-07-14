@@ -32,7 +32,7 @@ class HDBlueSphereGiver:HDPickup
 					owner.A_StartSound("misc/p_pkup",CHAN_BODY);
 					vfx = true;		
 				}
-				owner.A_GiveInventory("HDBlues",HDBLU_BALL);
+				owner.A_GiveInventory("HealingMagic",HDHM_BALL);
 			}
 			owner.A_TakeInventory("HDBlueSphereGiver",remainder);
 			

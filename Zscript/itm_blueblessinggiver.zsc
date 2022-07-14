@@ -9,7 +9,7 @@ class HDBlueBlessingGiver:HDWeapon
 	{
 		-HDWeapon.fitsinbackpack;
 		HDWeapon.refid RFID_BLUEBLESSING;
-		tag "Healing Energy";
+		tag "Healing Magic";
 		inventory.icon "PLSEB0";
 		hdweapon.loadoutcodes "
 			\cuamount - 0-???, amount to be blessed.
@@ -36,7 +36,7 @@ class HDBlueBlessingGiver:HDWeapon
 	
 			if(amount <= -1 || amount == 0)
 			{
-				amount = random(48, HDBLU_BALL);
+				amount = random(48, HDHM_BALL);
 			}
 	
 			int remainder = amount;
@@ -56,7 +56,7 @@ class HDBlueBlessingGiver:HDWeapon
 			
 			if(hd_debug)console.printf("Giving player ["..owner.playernumber().."] "..remainder.." Blues.");
 			
-			owner.A_GiveInventory("HDBlues", remainder);
+			owner.A_GiveInventory("HealingMagic", remainder);
 			destroy();
 		}
 		else

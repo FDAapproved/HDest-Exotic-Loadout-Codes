@@ -35,8 +35,8 @@ class HDBrownSphereGiver:HDPickup
 					owner.A_StartSound("misc/p_pkup",CHAN_BODY);
 					vfx = true;		
 				}
-				owner.A_GiveInventory(Wads.CheckNumForName("id",0)==-1?"ShieldCore":"SpiritualArmour",1);
-				owner.A_GiveInventory("HDBlues",HDBLU_BALL);
+				owner.A_GiveInventory("ShieldCore",1);
+				owner.A_GiveInventory("HealingMagic",HDHM_BALL);
 			}
 			
 			owner.A_TakeInventory("HDBrownSphereGiver",remainder);
