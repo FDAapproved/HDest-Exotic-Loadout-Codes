@@ -36,7 +36,19 @@ class HDBrownSphereGiver:HDPickup
 					vfx = true;		
 				}
 				owner.A_GiveInventory("ShieldCore",1);
+				let scc=owner.findinventory("ShieldCore");
 				owner.A_GiveInventory("HealingMagic",HDHM_BALL);
+				if(
+					scc
+					&&!owner.countinv("HDMagicShield")
+					&&owner.player
+				)	
+				{
+					int btbak=owner.player.cmd.buttons;
+					owner.player.cmd.buttons&=~BT_USE;
+					owner.UseInventory(scc);
+					owner.player.cmd.buttons=btbak;
+				}
 			}
 			
 			owner.A_TakeInventory("HDBrownSphereGiver",remainder);
